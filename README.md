@@ -16,3 +16,15 @@
 ## TODO
 
 * update to webpack v2.0
+
+## start
+
+1. npm install  /  淘宝镜像安装：cnpm install
+2.npm start
+
+##  Learning for reference only
+
+
+
+
+##  From Mr.chunlei
