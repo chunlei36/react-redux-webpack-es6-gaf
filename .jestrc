@@ -1,0 +1,29 @@
+{
+  "globals": {
+  },
+  "testURL": "http://localhost/",
+  "transform": {
+    ".*": "<rootDir>/node_modules/babel-jest"
+  },
+  "testPathDirs": [
+    "src/__tests__"
+  ],
+  "unmockedModulePathPatterns": [
+    "./node_modules/lodash",
+    "./node_modules/react",
+    "./node_modules/react-dom",
+    "./node_modules/redux"
+  ],
+  "moduleNameMapper": {
+    "^constants(.*)$": "<rootDir>/src/constants$1",
+    "^actions(.*)$": "<rootDir>/src/actions$1",
+    "^components(.*)$": "<rootDir>/src/components$1",
+    "^containers(.*)$": "<rootDir>/src/containers$1",
+    "^reducers(.*)$": "<rootDir>/src/reducers$1",
+    "\\.(css|scss)$": "identity-obj-proxy",
+    "\\.(gif|ttf|eot|svg)$": "<rootDir>/src/__mocks__/fileMock.js"
+  },
+  "setupFiles": [
+    "<rootDir>/src/__mocks__/browserMocks.js"
+    ]
+}

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import styles from 'components/counter/Counter.scss';
 
 import { increment, decrement, resetNumber } from 'actions';
 
@@ -9,7 +10,10 @@ import CounterInput from 'components/counter/CounterInput';
 class CounterContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: '1' };
+    this.state = {
+      value: '1',
+      contianerStyle: ''
+    };
 
     // 可以简化，参考ES2017 Property initializer syntax
     // http://babeljs.io/docs/plugins/transform-class-properties/
@@ -20,6 +24,19 @@ class CounterContainer extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleFoucs = this.handleFoucs.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+  }
+
+  componentDidMount() {
+    this.timeId = setTimeout(() => {
+      this.setState({
+        contianerStyle: styles.animation
+      });
+    }, 1000);
+    console.log(this.timeId);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeId);
   }
 
   handleIncrement() {
@@ -65,7 +82,7 @@ class CounterContainer extends Component {
   render() {
     const { counter } = this.props;
     return (
-      <div>
+      <div className={`${styles.container} ${this.state.contianerStyle}`}>
         <h2>CounterContainer!!</h2>
         <CounterInput
           value={this.state.value}

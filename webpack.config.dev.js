@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -14,6 +15,7 @@ module.exports = {
     publicPath: '/dist/',
   },
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     /**
      * This is where the magic happens! You need this to enable Hot Module Replacement!
      */
@@ -33,6 +35,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
+    new ExtractTextPlugin('css/bundle.css'),
   ],
   module: {
     loaders: [
@@ -43,8 +46,34 @@ module.exports = {
         include: path.join(__dirname, 'src')
       },
       {
-        test: /\.scss$/,
-        loader: 'style!css!sass'
+        test: /\.(css|scss)$/,
+        exclude: path.join(__dirname, 'src/styles'),
+        loaders: [
+          'style-loader',
+          'css-loader?modules&localIdentName=[name]__[local]__[hash:base64:5]',
+          'postcss-loader',
+          'sass-loader'
+        ],
+      },
+
+      // // ExtractTextPlugin在生产环境中使用，否则无法实现css_modules的hot-reload
+      // {
+      //   test: /\.(css|scss)$/,
+      //   exclude: path.join(__dirname, 'src/styles'),
+      //   loader: ExtractTextPlugin.extract(
+      //     'style-loader',
+      //     'css-loader?modules&localIdentName=[name]__[local]__[hash:base64:5]!postcss-loader!sass-loader' // ExtractTextPlugin必须写一起
+      //   )
+      // },
+      {
+        test: /\.(css|scss)$/,
+        include: path.join(__dirname, 'src/styles'),
+        loaders: [
+          'style-loader',
+          'css-loader', // styles目录中的css不使用css_modules
+          'postcss-loader',
+          'sass-loader'
+        ]
       }
     ]
   },
@@ -53,12 +82,13 @@ module.exports = {
       path.resolve(__dirname),
     ],
     // add alias for application code directory
-    alias:{
+    alias: {
       components: 'src/components',
       containers: 'src/containers',
       actions: 'src/actions',
-      constants: 'src/constants'
+      constants: 'src/constants',
+      reducers: 'src/reducers'
     },
-    extensions: [ '', '.js' ]
+    extensions: ['', '.js']
   }
 };

@@ -4,7 +4,7 @@ import { Router } from 'react-router';
 import routes from './routes';
 
 class Root extends Component {
-  render () {
+  render() {
     const { store, history } = this.props;
     if (!this.routeConfig) this.routeConfig = routes; // hot-loader router error fix
     return (
