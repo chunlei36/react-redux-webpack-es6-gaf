@@ -1,0 +1,29 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["standard", "standard-react"],
+  "plugins": [
+      "standard",
+      "promise",
+      "react"
+  ],
+  "settings" : {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.dev.js"
+      }
+    }
+  },
+  "rules": {
+    "semi": [2, "always"],
+    "arrow-parens": ["error", "always"],
+    "react/prefer-stateless-function": 1,
+    "space-before-function-paren": ["error", "never"]
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  }
+}

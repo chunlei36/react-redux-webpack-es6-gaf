@@ -1,3 +1,2 @@
-react-redux-webpack-es6-gaf
-模板框架
-仅供学习参考
+# React-Redux-Webpack-Starter
+React-Redux-Webpack-Starter
